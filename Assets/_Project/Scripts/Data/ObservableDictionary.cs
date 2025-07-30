@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace HighVoltage.Data
+namespace Template._Project.Scripts.Data
 {
     public class ObservableDictionary<TKey, TValue> : Dictionary<TKey, TValue>
     {
