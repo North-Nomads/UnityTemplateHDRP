@@ -1,6 +1,4 @@
-﻿using Template._Project.Scripts.Services.PersistentProgress;
-
-namespace ZombieBarrels.Services.Progress
+﻿namespace Template._Project.Scripts.Services.PersistentProgress
 {
     public interface IProgressUpdater : ISavedProgressReader
     {
