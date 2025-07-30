@@ -1,36 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using Template._Project.Scripts.Services.AssetProvider;
 using Template._Project.Scripts.Services.GameFactory;
 using Template._Project.Scripts.Services.PersistentProgress;
-using UnityEngine;
+using Template._Project.Scripts.Services.UIFactory;
 
 namespace Template._Project.Scripts.States
 {
     public class HubLoopState : IState
     {
-        // private readonly List<ISavedProgressReader> _saveReaderServices;
         private readonly IPersistentProgressService _persistentProgress;
-        private readonly GameStateMachine _stateMachine;
-        private readonly IAssetProviderService _assetProvider;
         private readonly IGameFactoryService _gameFactoryService;
-        private readonly Canvas _loadingCurtain;
-        // private readonly IUIFactory _uiFactory;
+        private readonly IAssetProviderService _assetProvider;
+        private readonly ISceneLoader _sceneLoader;
+        private readonly IUIFactory _uiFactory;
+        private readonly GameStateMachine _stateMachine;
 
         public HubLoopState(GameStateMachine gameStateMachine, IGameFactoryService gameFactoryService,
-            IPersistentProgressService persistentProgress, IAssetProviderService assetProvider)
+            IPersistentProgressService persistentProgress, IAssetProviderService assetProvider, ISceneLoader sceneLoader,
+            IUIFactory uiFactory)
         {
             _stateMachine = gameStateMachine;
             _gameFactoryService = gameFactoryService;
             _persistentProgress = persistentProgress;
             _assetProvider = assetProvider;
+            _sceneLoader = sceneLoader;
+            _uiFactory = uiFactory;
         }
 
         public void Enter()
         {
-            /*_windowService.CleanUp();
-            _sceneLoader.Load(Constants.HubSceneName, onLoaded: InitializeScene);*/
-            _loadingCurtain.gameObject.SetActive(false);
+            _sceneLoader.Load(ScenePath.HubSceneName, onLoaded: InitializeScene);
         }
 
         public void Exit()
@@ -47,7 +46,8 @@ namespace Template._Project.Scripts.States
         private void InitializeUI()
         {
             //_uiFactory.CreateUIRoot();
-            InitializeMenuWindows();
+            // InitializeMenuWindows();
+            _uiFactory.InstantiateWindow(HubWindowId.Hub);
         }
 
         /*private void InformProgressReaders()

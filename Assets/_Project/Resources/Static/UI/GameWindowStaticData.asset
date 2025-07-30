@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75fcfa44d384aafbb9bf7cc5d208ff1, type: 3}
   m_Name: GameWindowStaticData
   m_EditorClassIdentifier: 
-  Configs:
-  - WindowId: 0
-    Prefab: {fileID: 0}
+  Configs: []

@@ -5,7 +5,10 @@ using Template._Project.Scripts.Services.GameFactory;
 using Template._Project.Scripts.Services.PersistentProgress;
 using Template._Project.Scripts.Services.SaveLoad;
 using Template._Project.Scripts.Services.StaticData;
+using Template._Project.Scripts.Services.UIFactory;
 using Template._Project.Scripts.TimeManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Template._Project.Scripts.States
 {
@@ -16,15 +19,15 @@ namespace Template._Project.Scripts.States
 
         public GameStateMachine(IGameFactoryService gameFactoryService, IPersistentProgressService persistentProgress,
             IAssetProviderService assetProvider, IStaticDataService staticData, ISaveLoadService saveLoad,
-            IInGameTimeService inGameTime)
+            IInGameTimeService inGameTime, ISceneLoader sceneLoader, IUIFactory uiFactory)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this),
-                [typeof(LoadProgressState)] = new LoadProgressState(this),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, persistentProgress, saveLoad),
                 [typeof(LoadHubState)] = new LoadHubState(this),
-                [typeof(HubLoopState)] = new HubLoopState(this, gameFactoryService, persistentProgress, assetProvider),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, gameFactoryService, staticData),
+                [typeof(HubLoopState)] = new HubLoopState(this, gameFactoryService, persistentProgress, assetProvider, sceneLoader, uiFactory),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, gameFactoryService, staticData, uiFactory),
                 [typeof(GameLoopState)] = new GameLoopState(this, saveLoad, persistentProgress, inGameTime),
                 [typeof(GameFinishedState)] = new GameFinishedState(this, persistentProgress, inGameTime),
             };
@@ -32,12 +35,14 @@ namespace Template._Project.Scripts.States
 
         public void Enter<TState>() where TState : class, IState
         {
+            Debug.Log($"Scene {SceneManager.GetActiveScene().name} - {_currentState?.GetType().Name ?? "$None$"} called Enter<{typeof(TState).Name}>");
             IState state = ChangeState<TState>();
             state.Enter();
         }
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
+            Debug.Log($"Scene {SceneManager.GetActiveScene().name} - {_currentState} called Enter<{typeof(TState)}> with payload {payload}");
             TState state = ChangeState<TState>();
             state.Enter(payload);
         }

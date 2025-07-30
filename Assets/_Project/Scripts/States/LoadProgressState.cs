@@ -10,15 +10,18 @@ namespace Template._Project.Scripts.States
         private readonly GameStateMachine _gameStateMachine;
         private readonly ISaveLoadService _saveLoad;
 
-        public LoadProgressState(GameStateMachine gameStateMachine)
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService persistentProgress,
+            ISaveLoadService saveLoad)
         {
             _gameStateMachine = gameStateMachine;
+            _persistentProgress = persistentProgress;
+            _saveLoad = saveLoad;
         }
 
         public void Enter()
         {
             LoadProgressOrInitNew();
-            // _gameStateMachine.Enter<HubLoopState>();
+            _gameStateMachine.Enter<HubLoopState>();
         }
 
         public void Exit()

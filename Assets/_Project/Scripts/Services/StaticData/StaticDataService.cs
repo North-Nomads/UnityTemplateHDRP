@@ -12,11 +12,16 @@ namespace Template._Project.Scripts.Services.StaticData
         private Dictionary<GameWindowId, GameWindowConfig> _gameWindowConfigs;
         private Dictionary<HubWindowId, HubWindowConfig> _hubWindowConfigs;
 
+        public StaticDataService()
+        {
+            LoadConfigs();
+        }
+        
         public void LoadConfigs()
         {
-            _hubWindowConfigs = Resources.Load<HubWindowStaticData>(AssetPath.WindowConfigsFolder).Configs
+            _hubWindowConfigs = Resources.Load<HubWindowStaticData>(AssetPath.WindowConfigsFolder + "/HubWindowStaticData").Configs
                 .ToDictionary(x => x.WindowId, x => x);
-            _gameWindowConfigs = Resources.Load<GameWindowStaticData>(AssetPath.WindowConfigsFolder).Configs
+            _gameWindowConfigs = Resources.Load<GameWindowStaticData>(AssetPath.WindowConfigsFolder + "/GameWindowStaticData").Configs
                 .ToDictionary(x => x.WindowId, x => x);
         }
 
