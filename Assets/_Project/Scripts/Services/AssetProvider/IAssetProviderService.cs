@@ -4,6 +4,10 @@ namespace Template._Project.Scripts.Services.AssetProvider
 {
     public interface IAssetProviderService
     {
+        public GameObject Instantiate(string pathToPrefab);
+        public GameObject Instantiate(string pathToPrefab, Vector3 position);
+        public GameObject Instantiate(string pathToPrefab, Vector3 position, Transform parent);
+        public GameObject Instantiate(string pathToPrefab, Vector3 position, Transform parent, Quaternion rotation);
         public T Instantiate<T>(string pathToPrefab) where T : MonoBehaviour;
         public T Instantiate<T>(string pathToPrefab, Vector3 position) where T : MonoBehaviour;
         public T Instantiate<T>(string pathToPrefab, Vector3 position, Transform parent) where T : MonoBehaviour;

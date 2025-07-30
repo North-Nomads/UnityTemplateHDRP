@@ -4,6 +4,18 @@ namespace Template._Project.Scripts.Services.AssetProvider
 {
     public class AssetProviderService : IAssetProviderService
     {
+        public GameObject Instantiate(string pathToPrefab) 
+            => Object.Instantiate(Resources.Load<GameObject>(pathToPrefab));
+
+        public GameObject Instantiate(string pathToPrefab, Vector3 position) 
+            => Object.Instantiate(Resources.Load<GameObject>(pathToPrefab), position, Quaternion.identity);
+
+        public GameObject Instantiate(string pathToPrefab, Vector3 position, Transform parent) 
+            => Object.Instantiate(Resources.Load<GameObject>(pathToPrefab), position, Quaternion.identity, parent);
+
+        public GameObject Instantiate(string pathToPrefab, Vector3 position, Transform parent, Quaternion rotation) 
+            => Object.Instantiate(Resources.Load<GameObject>(pathToPrefab), position, rotation, parent);
+
         public T Instantiate<T>(string pathToPrefab) where T : MonoBehaviour 
             => Object.Instantiate(Resources.Load<T>(pathToPrefab));
 
