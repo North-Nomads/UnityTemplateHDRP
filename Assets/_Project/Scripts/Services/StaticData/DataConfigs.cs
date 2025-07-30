@@ -1,12 +1,13 @@
 using System;
+using Template._Project.Scripts.Services.UIFactory;
 
 namespace Template._Project.Scripts.Services.StaticData
 {
-    /*[Serializable]
-    public class WindowConfig
+    [Serializable]
+    public class HubWindowConfig
     {
-        public WindowId WindowId;
-        public WindowBase Prefab;
+        public HubWindowId WindowId;
+        public HubWindowBase Prefab;
     }
 
     [Serializable]
@@ -15,6 +16,6 @@ namespace Template._Project.Scripts.Services.StaticData
         public GameWindowId WindowId;
         public GameWindowBase Prefab;
     }
-    
-    // Mob configs, Level configs, etc*/
+
+    // Mob configs, Level configs, etc
 }

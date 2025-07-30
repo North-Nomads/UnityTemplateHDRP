@@ -1,20 +1,29 @@
+using System.Collections.Generic;
+using System.Linq;
+using Template._Project.Scripts.Data;
+using Template._Project.Scripts.Services.UIFactory;
+using Template._Project.Scripts.UI.StaticData;
+using UnityEngine;
+
 namespace Template._Project.Scripts.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
-        /*
-        private Dictionary<int, MobConfig> _zombieConfigs;
-
-        public void LoadLevels()
-            => _levels = Resources.LoadAll<LevelConfig>("Configs/Levels").ToDictionary(x => x.LevelID, x => x);
-
-        public LevelConfig ForLevel(int levelID)
-            => _levels.GetValueOrDefault(levelID);
-        */
+        private Dictionary<GameWindowId, GameWindowConfig> _gameWindowConfigs;
+        private Dictionary<HubWindowId, HubWindowConfig> _hubWindowConfigs;
 
         public void LoadConfigs()
         {
-            // LoadLevels();
+            _hubWindowConfigs = Resources.Load<HubWindowStaticData>(AssetPath.WindowConfigsFolder).Configs
+                .ToDictionary(x => x.WindowId, x => x);
+            _gameWindowConfigs = Resources.Load<GameWindowStaticData>(AssetPath.WindowConfigsFolder).Configs
+                .ToDictionary(x => x.WindowId, x => x);
         }
+
+        public HubWindowConfig ForHubWindow(HubWindowId windowID) 
+            => _hubWindowConfigs[windowID];
+
+        public GameWindowConfig ForGameWindow(GameWindowId windowID)
+            => _gameWindowConfigs[windowID];
     }
 }
