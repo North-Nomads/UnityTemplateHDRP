@@ -45,9 +45,4 @@ namespace Template._Project.Scripts.Data
         private static bool HasAnyInterfaces(Type type, Type interfaceType)
             => type.GetInterfaces().Any(i => ResolveGenericType(i) == interfaceType);
     }
-
-    public static class Constants
-    {
-        public const float TimeToTick = 0.1f;
-    }
 }
